@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>bus-lines</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="points.js"></script>
+</head>
+<body>
+
+<div id="map" style="height: 700px;"></div>
+
+<script>
+var calculateCenter = function (pointsArray) {
+	var center = pointsArray.reduce(function (prev, current){
+		prev[0] += current[0];
+		prev[1] += current[1];
+
+		return prev;
+	}, [0.0, 0.0]);
+
+	center[0] /= pointsArray.length;
+	center[1] /= pointsArray.length;
+
+	return center;
+}
+
+// NOTE! Google Maps takes coordinates in format (latitude, longitude), but GeoJSON takes (longitude, latitude)
+// that's why we have to reverse the order of coordinates before putting those in GeoJSON
+var flipCoordinatesForStupidGeoJSON = function (listOfCoordinates) {
+	return listOfCoordinates.map(function (coord) {
+		return [coord[1], coord[0]];
+	});
+};
+
+var map = L.map('map').setView(calculateCenter(points), 13);
+
+var providers = {
+	mapbox: {
+		template: 'http://{s}.tiles.mapbox.com/v3/MapID/{z}/{x}/{y}.png',
+		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
+	},
+
+	osm: {
+		template: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+	},
+
+	mapquest: {
+		template: 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
+		attribution: 'fixme'
+	}
+};
+
+var provider = providers.osm; // you can change the provider to use different style map
+
+L.tileLayer(provider.template, {
+    attribution: provider.attribution,
+    maxZoom: 18
+}).addTo(map);
+
+L.geoJson([{
+    type: 'LineString',
+    coordinates: flipCoordinatesForStupidGeoJSON(points)
+}], {
+    color: "#0000ff",
+    weight: 5,
+    opacity: 0.65
+}).addTo(map);
+
+</script>
+
+</body>
+</html>
