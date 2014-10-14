@@ -34,7 +34,10 @@ var flipCoordinatesForStupidGeoJSON = function (listOfCoordinates) {
 	});
 };
 
-var map = L.map('map').setView(calculateCenter(points), 13);
+var map = L.map('map', {
+            //maxBounds: [ [south, west], [north, east] ]
+            maxBounds: [ [ 61.40, 23.50 ], [61.55, 24.10] ]
+            }).setView(calculateCenter(points), 13);
 
 var providers = {
 	mapbox: {
@@ -57,7 +60,8 @@ var provider = providers.osm; // you can change the provider to use different st
 
 L.tileLayer(provider.template, {
     attribution: provider.attribution,
-    maxZoom: 18
+    maxZoom: 18,
+    minZoom: 12
 }).addTo(map);
 
 L.geoJson([{
