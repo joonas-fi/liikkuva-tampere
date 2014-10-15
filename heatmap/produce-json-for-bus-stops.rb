@@ -48,8 +48,8 @@ def bus_stop_coordinates_from_original_data(bus_stops)
 	bus_stops.each do |stop|
 		
 		processed = []
-		processed.push stop["stop_lat"]
-		processed.push stop["stop_lon"]
+		processed.push stop["stop_lat"].to_f
+		processed.push stop["stop_lon"].to_f
 		
 		ret.push processed
 	end
