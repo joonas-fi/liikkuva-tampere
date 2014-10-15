@@ -4,6 +4,8 @@
 <head>
 	<title>bus-lines</title>
 	<meta charset="utf-8"></meta>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -49,15 +51,15 @@ $(document).ready(function (){
 	for (var i = 0; i < routes.length; ++i) {
 		var tr = $('<tr class="line"></tr>').attr('data-id', routes[i].route_id);
 
-		$('<td class="displayed_indicator"></td>').appendTo(tr);
+		$('<td><input class="displayed_indicator" type="checkbox" /></td>').appendTo(tr);
 		$('<td></td>').text(routes[i].route_short_name).appendTo(tr);
 		$('<td></td>').text(routes[i].route_long_name).appendTo(tr);
 
 		tr.appendTo(tbody);
 	}
 
-	$(tbody).on('click', 'tr.line', function (){
-		var routeId = this.getAttribute('data-id');
+	$(tbody).on('change', '.displayed_indicator', function (){
+		var routeId = $(this).closest('tr').attr('data-id');
 
 		if (routeId in allPoints === false) {
 			alert('no shape data for route ' + routeId);
@@ -65,9 +67,6 @@ $(document).ready(function (){
 		}
 
 		var alreadyVisible = routeId in visibleRoutes;
-
-		// update indicator to reflect new state
-		$(this).find('.displayed_indicator').text(alreadyVisible ? '' : 'x');
 
 		// remove from map
 		if (alreadyVisible) {
@@ -91,16 +90,17 @@ $(document).ready(function (){
 
 </script>
 
-<table class="lines">
+<table class="lines table table-striped" style="margin: 20px; display: inline-block; ">
 <thead>
 	<tr>
-		<th>näkyvillä</th>
-		<th>nro</th>
-		<th>kuvaus</th>
+		<th></th>
+		<th></th>
+		<th>linja</th>
 	</tr>
 </thead>
 <tbody>
 </tbody>
 </table>
+
 </body>
 </html>
