@@ -10,14 +10,12 @@ Open bus-lines.html in your browser!
 
 Run the following script:
 
-$ ruby produce-json-for-line.rb
-
+	$ ruby produce-json-for-line.rb
 	Usage: <route_short_name>
 
 => So use the bus number to build the points.js file:
 
-$ ruby produce-json-for-line.rb "Y35"
-
+	$ ruby produce-json-for-line.rb Y35
 	202 point(s) written to points.js
 	fixme: discarded 2 shapes
 
