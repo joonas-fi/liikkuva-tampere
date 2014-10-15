@@ -3,9 +3,13 @@
 <html>
 <head>
 	<title>bus-lines</title>
+	<meta charset="utf-8"></meta>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="points.js"></script>
+	<script src="routes.js"></script>
+	<script src="points-all-routes.js"></script>
 	<script src="stops.js"></script>
 </head>
 <body>
@@ -69,24 +73,72 @@ L.tileLayer(provider.template, {
     minZoom: 12
 }).addTo(map);
 
-/*
-L.geoJson([{
-    type: 'LineString',
-    coordinates: flipCoordinatesForStupidGeoJSON(points)
-}], {
-    color: "#0000ff",
-    weight: 5,
-    opacity: 0.65
-}).addTo(map);
-*/
-
 for(var i = 0; i < busStops.length; i++)
 {
 	var coords = [ busStops[i][0], busStops[i][1] ];
 	L.circle(coords, 50, { color: '#0000ff', weight: 3 }).addTo(map);
 }
 
+var visibleRoutes = {};
+
+$(document).ready(function (){
+	var tbody = $('table.lines tbody');
+
+	for (var i = 0; i < routes.length; ++i) {
+		var tr = $('<tr class="line"></tr>').attr('data-id', routes[i].route_id);
+
+		$('<td class="displayed_indicator"></td>').appendTo(tr);
+		$('<td></td>').text(routes[i].route_short_name).appendTo(tr);
+		$('<td></td>').text(routes[i].route_long_name).appendTo(tr);
+
+		tr.appendTo(tbody);
+	}
+
+	$(tbody).on('click', 'tr.line', function (){
+		var routeId = this.getAttribute('data-id');
+
+		if (routeId in allPoints === false) {
+			alert('no shape data for route ' + routeId);
+			return;
+		}
+
+		var alreadyVisible = routeId in visibleRoutes;
+
+		// update indicator to reflect new state
+		$(this).find('.displayed_indicator').text(alreadyVisible ? '' : 'x');
+
+		// remove from map
+		if (alreadyVisible) {
+			map.removeLayer(visibleRoutes[routeId]);
+			delete visibleRoutes[routeId];
+		} else { // add to map
+			visibleRoutes[routeId] = L.geoJson([{
+				type: 'LineString',
+				coordinates: flipCoordinatesForStupidGeoJSON(allPoints[routeId])
+			}], {
+				color: "#0000ff",
+				weight: 5,
+				opacity: 0.65
+			})
+
+			visibleRoutes[routeId].addTo(map);
+		}
+
+	});
+});
+
 </script>
 
+<table class="lines">
+<thead>
+	<tr>
+		<th>näkyvillä</th>
+		<th>nro</th>
+		<th>kuvaus</th>
+	</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
 </body>
 </html>
