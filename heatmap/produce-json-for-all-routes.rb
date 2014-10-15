@@ -3,7 +3,7 @@ require './common.rb'
 
 routes = parse_gtfs_file("routes.txt")
 
-filename = "routes.js"
+filename = "data-processed/routes.js"
 
 File.open(filename, "w") do |file|
 	# the file is not strictly JSON (hence extension .js)

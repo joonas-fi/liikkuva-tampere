@@ -38,7 +38,7 @@ puts "Read #{stops_original.length} bus-stops"
 
 stops = bus_stop_coordinates_from_original_data(stops_original)
 
-filename = "stops.js"
+filename = "data-processed/stops.js"
 
 File.open(filename, "w") do |file|
 	# the file is not strictly JSON (hence extension .js)

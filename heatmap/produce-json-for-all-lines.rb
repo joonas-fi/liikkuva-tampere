@@ -27,7 +27,7 @@ routes.each do |route|
 	allPoints[route_id] = expand_shape_ids_into_paths(shapes, unique_shape_ids)
 end
 
-filename = "points-all-routes.js"
+filename = "data-processed/points-all-routes.js"
 
 File.open(filename, "w") do |file|
 	# the file is not strictly JSON (hence extension .js)

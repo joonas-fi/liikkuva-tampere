@@ -9,11 +9,10 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-	<script src="points.js"></script>
-	<script src="routes.js"></script>
-	<script src="points-all-routes.js"></script>
-	<script src="stops.js"></script>
-	<script src="utils.js"></script>
+	<script src="data-processed/routes.js"></script>
+	<script src="data-processed/points-all-routes.js"></script>
+	<script src="data-processed/stops.js"></script>
+	<script src="features/utils.js"></script>
 	<script src="features/bus-stops.js"></script>
 	<script src="features/bus-selector.js"></script>
 </head>
@@ -29,7 +28,7 @@ var addBusStopsAsCirclesToMap = function(busStops) {
 var map = L.map('map', {
             //maxBounds: [ [south, west], [north, east] ]
             maxBounds: [ [ 61.40, 23.50 ], [61.55, 24.10] ]
-            }).setView(calculateCenter(points), 13);
+            }).setView([61.51, 23.72] , 13);
 
 var provider = providers.osm; // you can change the provider to use different style map
 
