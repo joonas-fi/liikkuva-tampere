@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="points.js"></script>
+	<script src="stops.js"></script>
 </head>
 <body>
 
@@ -32,6 +33,10 @@ var flipCoordinatesForStupidGeoJSON = function (listOfCoordinates) {
 	return listOfCoordinates.map(function (coord) {
 		return [coord[1], coord[0]];
 	});
+};
+
+var addBusStopsAsCirclesToMap = function(busStops) {
+	
 };
 
 var map = L.map('map', {
@@ -64,6 +69,7 @@ L.tileLayer(provider.template, {
     minZoom: 12
 }).addTo(map);
 
+/*
 L.geoJson([{
     type: 'LineString',
     coordinates: flipCoordinatesForStupidGeoJSON(points)
@@ -72,6 +78,13 @@ L.geoJson([{
     weight: 5,
     opacity: 0.65
 }).addTo(map);
+*/
+
+for(var i = 0; i < busStops.length; i++)
+{
+	var coords = [ busStops[i][0], busStops[i][1] ];
+	L.circle(coords, 50, { color: '#0000ff', weight: 3 }).addTo(map);
+}
 
 </script>
 
