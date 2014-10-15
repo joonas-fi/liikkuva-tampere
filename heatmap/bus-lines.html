@@ -18,7 +18,33 @@
 </head>
 <body>
 
-<div id="map" style="height: 700px;"></div>
+<div class="container-fluid">
+
+	<div class="row">
+	
+		<div class="col-md-3">
+			<input type="checkbox" id="showBusStops" />
+			<label for="showBusStops">näytä bussipysäkit</label>
+			
+			<table class="lines table table-striped">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>linja</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		
+		<div id="map" class="col-md-9" style="height: 700px;">
+		</div>
+	
+	</div>
+
+</div>
 
 <script>
 var addBusStopsAsCirclesToMap = function(busStops) {
@@ -39,22 +65,6 @@ L.tileLayer(provider.template, {
 }).addTo(map);
 
 </script>
-
-<div style="margin: 20px; ">
-	<input type="checkbox" id="showBusStops" /> <label for="showBusStops">näytä bussipysäkit</label>
-</div>
-
-<table class="lines table table-striped" style="margin: 20px; display: inline-block; ">
-<thead>
-	<tr>
-		<th></th>
-		<th></th>
-		<th>linja</th>
-	</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
 
 </body>
 </html>

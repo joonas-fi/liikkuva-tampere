@@ -17,11 +17,12 @@ $(document).ready(function (){
 	$(tbody).on('change', '.displayed_indicator', function (){
 		var routeId = $(this).closest('tr').attr('data-id');
 
-		if (routeId in allPoints === false) {
+		if (routeId in allPoints === false) 
+		{
 			alert('no shape data for route ' + routeId);
 			return;
 		}
-
+		
 		var alreadyVisible = routeId in visibleRoutes;
 
 		// remove from map
