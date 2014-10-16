@@ -1,0 +1,10 @@
+
+.main-navigation {
+	margin: 16px 0 4px 0;
+}
+
+/* Used to hide an element initially, which is to be shown at a later point - dynamically for example */
+
+.initially-hidden {
+	display: none;
+}

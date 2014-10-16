@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link rel="stylesheet" href="www/style.css">
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 	<script src="data-processed/routes.js"></script>
@@ -21,6 +22,18 @@
 <div class="container-fluid">
 
 	<div class="row">
+		
+		<div class="col-md-12">
+			<ul class="nav nav-tabs main-navigation" role="tablist">
+				<li class="active"><a href="#" data-target="map-browse">Selaa</a></li>
+				<li><a href="#" data-target="reachability-map">Tavoitettavuuskartta</a></li>
+				<li><a href="#" data-target="prices">Maksuvyöhykkeet &amp; hinnat</a></li>
+			</ul>			
+		</div>
+
+	</div>
+
+	<div class="row content-section" id="map-browse">
 	
 		<div class="col-md-3" style="height: 700px; overflow-y: auto; ">
 			<input type="checkbox" id="showBusStops" />
@@ -42,6 +55,26 @@
 		<div id="map" class="col-md-9" style="height: 700px;">
 		</div>
 	
+	</div>
+
+	<div class="row content-section" id="prices">
+		<div class="col-md-12">
+			<h2>Maksuvyöhykkeet</h2>
+
+			<img src="www/vyohykkeet_jolila.jpg" alt="Maksuvyöhykkeet" />
+
+			<h2>Hinnat</h2>
+
+			<img src="www/20140630_hinnasto.png" alt="">
+
+		</div>
+	</div>
+
+	<div class="row content-section" id="reachability-map">
+		<div class="col-md-12">
+			<h2>fixme</h2>
+
+		</div>
 	</div>
 
 </div>

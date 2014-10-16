@@ -23,7 +23,7 @@ var flipCoordinatesForStupidGeoJSON = function (listOfCoordinates) {
 // some providers that leaflet supports. you can try to change the provider to get a different looking map
 var providers = {
 	mapbox: {
-		template: 'http://{s}.tiles.mapbox.com/v3/MapID/{z}/{x}/{y}.png',
+		template: 'https://{s}.tiles.mapbox.com/v4/joonas-fi.jp9f2lef/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoiam9vbmFzLWZpIiwiYSI6ImVkUWgwZTgifQ.WRQC8mpASiCFxFll7t6odQ',
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
 	},
 
@@ -37,3 +37,26 @@ var providers = {
 		attribution: 'fixme'
 	}
 };
+
+var initTabNavigation = function () {
+	var initialSection = 'map-browse';
+
+	hideAllContentSectionsExcept(initialSection);
+
+	$('.main-navigation').on('click', 'a', function (){
+		var li = $(this).closest('li').addClass('active');
+		li.siblings().not(li).removeClass('active');
+
+		hideAllContentSectionsExcept(this.getAttribute('data-target'));
+	});
+};
+
+var hideAllContentSectionsExcept = function (sectionToKeep) {
+	$('.content-section').each(function (){
+		$(this).toggleClass('initially-hidden', this.id != sectionToKeep);
+	});
+};
+
+$(document).ready(function (){
+	initTabNavigation();
+});
