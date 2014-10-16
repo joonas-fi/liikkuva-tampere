@@ -47,21 +47,17 @@
 </div>
 
 <script>
-var addBusStopsAsCirclesToMap = function(busStops) {
-	
-};
 
 var map = L.map('map', {
-            //maxBounds: [ [south, west], [north, east] ]
-            maxBounds: [ [ 61.40, 23.50 ], [61.55, 24.10] ]
-            }).setView([61.51, 23.72] , 13);
+	// initial options for Leaflet map - currently empty
+}).setView([61.49, 23.77] , 13);
 
 var provider = providers.osm; // you can change the provider to use different style map
 
 L.tileLayer(provider.template, {
     attribution: provider.attribution,
     maxZoom: 18,
-    minZoom: 12
+    minZoom: 9 // 9 comes from bus stops maxBounds fixme: compute dynamically? (there was no API for this)
 }).addTo(map);
 
 </script>
