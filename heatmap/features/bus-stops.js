@@ -4,8 +4,18 @@ $(document).ready(function (){
 	// note: the difference of featureGroup vs layerGroup is that it contains getBounds() and supports some events etc.
 	var busStopLayer = L.featureGroup();
 
-	for(var i = 0; i < busStops.length; i++) {
-		var coords = [ busStops[i][0], busStops[i][1] ];
+	for (var busStopId in busStops) {
+		var busStopDetails = busStops[busStopId];
+		var coords = [ busStopDetails[0], busStopDetails[1] ];
+
+		// var arrivalTimes = busStopDetails[2];
+		// 
+		// note to Samu:
+		// - arrival times is a list like this: [3600, 7200, ...]
+		// - time is seconds since midnight, so 3600 is 01:00:00, 3666  is 01:01:06 etc..
+		// - the list is not sorted, call sort() on the array if needed
+
+
 		L.circle(coords, 25, { color: '#0000ff', weight: 3 }).addTo(busStopLayer);
 	}
 
