@@ -10,12 +10,15 @@
 	<link rel="stylesheet" href="www/style.css">
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src="www/heatmapjs-2.0.0/heatmap.js"></script>
+	<script src="www/heatmapjs-2.0.0/leaflet-heatmap.js"></script>
 	<script src="data-processed/routes.js"></script>
 	<script src="data-processed/points-all-routes.js"></script>
 	<script src="data-processed/stops.js"></script>
 	<script src="features/utils.js"></script>
 	<script src="features/bus-stops.js"></script>
 	<script src="features/bus-selector.js"></script>
+	<script src="features/heatmap.js"></script>
 </head>
 <body>
 
@@ -81,7 +84,7 @@
 
 <script>
 
-var map = L.map('map', {
+map = L.map('map', {
 	// initial options for Leaflet map - currently empty
 }).setView([61.49, 23.77] , 13);
 

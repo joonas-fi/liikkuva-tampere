@@ -1,3 +1,5 @@
+var map; // this is the global reference to leaflet.js based map object
+
 var calculateCenter = function (pointsArray) {
 	var center = pointsArray.reduce(function (prev, current){
 		prev[0] += current[0];
