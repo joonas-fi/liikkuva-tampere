@@ -6,7 +6,7 @@ $(document).ready(function (){
 
 	for(var i = 0; i < busStops.length; i++) {
 		var coords = [ busStops[i][0], busStops[i][1] ];
-		L.circle(coords, 50, { color: '#0000ff', weight: 3 }).addTo(busStopLayer);
+		L.circle(coords, 25, { color: '#0000ff', weight: 3 }).addTo(busStopLayer);
 	}
 
 	// set map max bounds according to bus stop bounds (so user can't linger too far away from what's important)
