@@ -1,5 +1,8 @@
 
+var heatmapLayer;
+
 $(document).ready(function (){
+	/*
 	var testData = {
 		max: 8,
 		data: [
@@ -7,7 +10,8 @@ $(document).ready(function (){
 			{lat: 61.486300, lng: 23.839500, count: 2}
 		]
 	};
-
+	*/
+	
 	// note to Samu: what affects the radius of the "heat point" is it's count field AND heatmapConfig.radius.
 	// experiment with those to see the effects. heatmapConfig.radius is kind of a multiplier for the actual value your algorithm will provide
 
@@ -31,7 +35,79 @@ $(document).ready(function (){
 		valueField: 'count'
 	};
 
-	var heatmapLayer = new HeatmapOverlay(heatmapConfig);
+	heatmapLayer = new HeatmapOverlay(heatmapConfig);
 	map.addLayer(heatmapLayer);
-	heatmapLayer.setData(testData);
 });
+
+var timeStep = 60;
+var currentTime = 0;
+var animationRunning = false;
+
+var updateHotness = function updateHotness()
+{
+	if (!animationRunning)
+		return;
+		
+	//{lat: 61.485008, lng: 23.846995, count: 3},
+	var liveData = {
+		data: [
+		]
+	};
+
+	for (var busStopId in busStops) {
+		liveData.data.push( calculateHotness(busStops[busStopId], currentTime) );
+	}
+	
+	var clock = new Date(currentTime * 1000);
+	
+	var time = clock.getHours() < 10 ? "0" + clock.getUTCHours() : clock.getUTCHours();
+	time += ":";
+	time += clock.getMinutes() < 10 ? "0" + clock.getUTCMinutes() : clock.getUTCMinutes();
+	
+	document.getElementById("currentTime").value = time;
+	
+	currentTime += timeStep;
+	
+	if (currentTime > 60 * 60 * 24)
+	{
+		currentTime = 0;
+	}
+
+	heatmapLayer.setData(liveData);
+	
+	startHotness();
+}
+
+var calculateHotness = function(busStop, currentTime)
+{
+	var busStopHotness = { lat: busStop[0], lng: busStop[1], count:0 };
+
+	var usageTimes = busStop[2];
+	usageTimes.sort();
+	
+	var count = usageTimes.filter(function(element){
+		return element <= currentTime && element > currentTime - 60;
+	});
+	
+	busStopHotness.count = count.length;
+	
+	return busStopHotness;
+}
+
+function startHotness()
+{
+	animationRunning = true;
+	
+	var updateSpeed = document.getElementById("updateSpeed");
+	updateSpeed.disabled = true;
+	
+	setTimeout(updateHotness, parseInt(1000 / updateSpeed.value) );
+}
+
+function stopHotness()
+{
+	animationRunning = false;
+	
+	var updateSpeed = document.getElementById("updateSpeed");
+	updateSpeed.disabled = false;
+}
