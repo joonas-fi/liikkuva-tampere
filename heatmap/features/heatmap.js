@@ -2,15 +2,6 @@
 var heatmapLayer;
 
 $(document).ready(function (){
-	/*
-	var testData = {
-		max: 8,
-		data: [
-			{lat: 61.485008, lng: 23.846995, count: 3},
-			{lat: 61.486300, lng: 23.839500, count: 2}
-		]
-	};
-	*/
 	
 	// note to Samu: what affects the radius of the "heat point" is it's count field AND heatmapConfig.radius.
 	// experiment with those to see the effects. heatmapConfig.radius is kind of a multiplier for the actual value your algorithm will provide
@@ -48,6 +39,8 @@ var updateHotness = function updateHotness()
 	if (!animationRunning)
 		return;
 		
+	startHotness();
+		
 	//{lat: 61.485008, lng: 23.846995, count: 3},
 	var liveData = {
 		data: [
@@ -60,9 +53,9 @@ var updateHotness = function updateHotness()
 	
 	var clock = new Date(currentTime * 1000);
 	
-	var time = clock.getHours() < 10 ? "0" + clock.getUTCHours() : clock.getUTCHours();
+	var time = clock.getUTCHours()< 10 ? "0" + clock.getUTCHours() : clock.getUTCHours();
 	time += ":";
-	time += clock.getMinutes() < 10 ? "0" + clock.getUTCMinutes() : clock.getUTCMinutes();
+	time += clock.getUTCMinutes() < 10 ? "0" + clock.getUTCMinutes() : clock.getUTCMinutes();
 	
 	document.getElementById("currentTime").value = time;
 	
@@ -74,23 +67,22 @@ var updateHotness = function updateHotness()
 	}
 
 	heatmapLayer.setData(liveData);
-	
-	startHotness();
 }
 
 var calculateHotness = function(busStop, currentTime)
 {
 	var busStopHotness = { lat: busStop[0], lng: busStop[1], count:0 };
 
+	// TODO : perhaps presort usage times so this does not need to run through all values
 	var usageTimes = busStop[2];
-	usageTimes.sort();
+	var count = usageTimes.reduce(function(previousValue, currentValue, index, array) {
+		if (currentValue <= currentTime && currentValue > currentTime - 60)
+			return previousValue + 1;
+		else
+			return previousValue;
+	}, 0);
 	
-	var count = usageTimes.filter(function(element){
-		return element <= currentTime && element > currentTime - 60;
-	});
-	
-	busStopHotness.count = count.length;
-	
+	busStopHotness.count = count;
 	return busStopHotness;
 }
 
