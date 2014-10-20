@@ -34,30 +34,24 @@ var timeStep = 60;
 var currentTime = 0;
 var animationRunning = false;
 
-var updateHotness = function updateHotness()
+var updateHotness = function()
 {
 	if (!animationRunning)
 		return;
-		
+        
 	startHotness();
 		
-	//{lat: 61.485008, lng: 23.846995, count: 3},
+	// receives entries like {lat: 61.485008, lng: 23.846995, count: 3},
 	var liveData = {
 		data: [
 		]
 	};
-
+    
 	for (var busStopId in busStops) {
 		liveData.data.push( calculateHotness(busStops[busStopId], currentTime) );
 	}
-	
-	var clock = new Date(currentTime * 1000);
-	
-	var time = clock.getUTCHours()< 10 ? "0" + clock.getUTCHours() : clock.getUTCHours();
-	time += ":";
-	time += clock.getUTCMinutes() < 10 ? "0" + clock.getUTCMinutes() : clock.getUTCMinutes();
-	
-	document.getElementById("currentTime").value = time;
+    
+    updateClockDisplay('currentTime', currentTime);
 	
 	currentTime += timeStep;
 	
@@ -86,20 +80,34 @@ var calculateHotness = function(busStop, currentTime)
 	return busStopHotness;
 }
 
+function setAnimationRunState(state)
+{
+	animationRunning = state;
+	var updateSpeed = document.getElementById("updateSpeed");
+	updateSpeed.disabled = state;
+}
+
 function startHotness()
 {
-	animationRunning = true;
-	
+    setAnimationRunState(true);
 	var updateSpeed = document.getElementById("updateSpeed");
-	updateSpeed.disabled = true;
-	
 	setTimeout(updateHotness, parseInt(1000 / updateSpeed.value) );
 }
 
 function stopHotness()
 {
-	animationRunning = false;
-	
-	var updateSpeed = document.getElementById("updateSpeed");
-	updateSpeed.disabled = false;
+    setAnimationRunState(false);
+}
+
+function clearHotness()
+{
+    currentTime = 0;
+    updateClockDisplay('currentTime', currentTime);
+    
+	var liveData = {
+		data: [
+		]
+	};
+    
+    heatmapLayer.setData(liveData);
 }

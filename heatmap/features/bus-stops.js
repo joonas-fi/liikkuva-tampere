@@ -16,7 +16,7 @@ $(document).ready(function (){
 		// - the list is not sorted, call sort() on the array if needed
 
 
-		L.circle(coords, 25, { color: '#0000ff', weight: 3 }).addTo(busStopLayer);
+		L.circle(coords, 25, { color: '#ff0000', weight: 3 }).addTo(busStopLayer);
 	}
 
 	// set map max bounds according to bus stop bounds (so user can't linger too far away from what's important)

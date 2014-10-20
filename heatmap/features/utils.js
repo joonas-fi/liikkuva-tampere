@@ -60,5 +60,16 @@ var hideAllContentSectionsExcept = function (sectionToKeep) {
 };
 
 $(document).ready(function (){
-	initTabNavigation();
+	//initTabNavigation();
 });
+
+var updateClockDisplay = function(clockComponent, time)
+{
+	var clock = new Date(time * 1000);
+	
+	var time = clock.getUTCHours()< 10 ? "0" + clock.getUTCHours() : clock.getUTCHours();
+	time += ":";
+	time += clock.getUTCMinutes() < 10 ? "0" + clock.getUTCMinutes() : clock.getUTCMinutes();
+	
+	document.getElementById(clockComponent).value = time;
+}
