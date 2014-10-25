@@ -26,17 +26,22 @@ var updateTrips = function()
 
 	updateClockDisplay('currentTime', currentTime);
     
-	currentTime += timeStep;
+	currentTime += interval;
 	
-	if (currentTime > 60 * 60 * 24)
+	if (currentTime > endMoment())
 	{
 		currentTime = 0;
         
         if (continuous)
         {
-            startTripping();
+            currentTime = startMoment();
+            setTimeout(updateTrips, calculateTimeoutForNextFrame());
         }
 	}
+    else
+    {
+        setTimeout(updateTrips, calculateTimeoutForNextFrame());
+    }
 }
 
 var isTripRouteActive = function(trip, currentTime)
@@ -47,9 +52,6 @@ var isTripRouteActive = function(trip, currentTime)
 
 var calculateBusPositionOnTripRoute = function(trip, currentTime)
 {
-    //[south, west], [north, east]
-    //[61.40, 23.50], [61.55, 24.10]
-
     for(var i = 0; i < trip.stops.length - 1; i++)
     {
         var prevStop = trip.stops[i];
@@ -72,28 +74,12 @@ var calculateBusPositionOnTripRoute = function(trip, currentTime)
     }
 }
 
-function setTripAnimationRunState(state)
-{
-	visualizationRunning = state;
-	var updateSpeed = document.getElementById("updateSpeed");
-	updateSpeed.disabled = state;
-}
-
 function startTripping()
 {
-    setTripAnimationRunState(true);
-	var updateSpeed = document.getElementById("updateSpeed");
-	setTimeout(updateTrips, parseInt(1000 / 10) );
-}
-
-function stopTripping()
-{
-    setTripAnimationRunState(false);
+    updateTrips();
 }
 
 function clearTrips()
 {
-    currentTime = 0;
-    updateClockDisplay('currentTime', currentTime);
 	map.removeLayer(busTripLayer);
 }

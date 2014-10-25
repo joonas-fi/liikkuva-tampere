@@ -45,18 +45,23 @@ var updateHotness = function()
 	}
     
     updateClockDisplay('currentTime', currentTime);
+
+	currentTime += interval*60;
 	
-	currentTime += timeStep;
-	
-	if (currentTime > 60 * 60 * 24)
+	if (currentTime > endMoment())
 	{
 		currentTime = 0;
         
         if (continuous)
         {
-            setTimeout(updateHotness, parseInt(1000 / updateSpeed) );
+            currentTime = startMoment();
+            setTimeout( updateHotness, calculateTimeoutForNextFrame() );
         }
 	}
+    else
+    {
+        setTimeout( updateHotness, calculateTimeoutForNextFrame() );
+    }
 
 	heatmapLayer.setData(liveData);
 }
@@ -68,7 +73,7 @@ var calculateHotness = function(busStop, currentTime)
 	// TODO : perhaps presort usage times so this does not need to run through all values
 	var usageTimes = busStop[2];
 	var count = usageTimes.reduce(function(previousValue, currentValue, index, array) {
-		if (currentValue <= currentTime && currentValue > currentTime - departingBusesWindow)
+		if (currentValue <= currentTime && currentValue > currentTime - (interval*busDepartureFactor) )
 			return previousValue + 1;
 		else
 			return previousValue;
@@ -78,41 +83,20 @@ var calculateHotness = function(busStop, currentTime)
 	return busStopHotness;
 }
 
-function setAnimationRunState(state)
-{
-	animationRunning = state;
-	document.getElementById("updateSpeed").disabled = state;
-}
-
 function resumeHotness()
 {
-    setAnimationRunState(true);
-	updateSpeed = document.getElementById("updateSpeed").value;
-
 	// leaflet is ok with same layer being added multiple times
 	map.addLayer(heatmapLayer);
-
 	updateHotness();
-}
-
-function pauseHotness()
-{
-    setAnimationRunState(false);
 }
 
 function clearHotness()
 {
-	pauseHotness();
-
-    currentTime = 0;
-    updateClockDisplay('currentTime', currentTime);
-    
 	var liveData = {
 		data: [
 		]
 	};
     
     heatmapLayer.setData(liveData);
-
     map.removeLayer(heatmapLayer);
 }

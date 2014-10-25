@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>Visualisoi innovatiivisesti Tampereen liikennettä!</title>
+	<title>Liikkuva Tampere, visualisointi, koska pystymme siihen</title>
 	<meta charset="utf-8"></meta>
     <link rel="shortcut icon" type="image/png" href="www/favicon.png" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
 <body>
 
 <div class="page-header">
-    <h1>&nbsp;Liikkuva Tampere<small> animoi kaikki ja vielä vähän enemmän</small></h1>
+    <h1>&nbsp;Liikkuva Tampere<small> visualisoidaan kaikki ja vielä vähän enemmän</small></h1>
 </div>
 
 <div class="container-fluid">
@@ -27,30 +27,52 @@
 	
 		<div class="col-md-3">
 			<ul class="nav nav-tabs" role="tablist">
-                <li><a href="#general" role="tab" data-toggle="tab">Yleistä</a></li>
+                <li class="active"><a href="#general" role="tab" data-toggle="tab">Yleistä</a></li>
 				<li><a href="#staticLines" role="tab" data-toggle="tab">Reitit</a></li>
-				<li class="active"><a href="#animatedBusStops" role="tab" data-toggle="tab">Visualisointi</a></li>
-				<li><a href="#animatedTrips" role="tab" data-toggle="tab">Reittianimaatio</a></li>
+				<li><a href="#visualization" role="tab" data-toggle="tab">Visualisointi</a></li>
 			</ul>
             
             <div class="tab-content">
-            
-                <div class="tab-pane" id="general">
-                    Lukuunottamatta tiettyjä erikoistapauksia ( itsenäisyyspäivä jne. ), pysyy liikenne vuoden aikana ( 11.8.2014 - 31.5.2015 ) hyvin samankaltaisena.
-                    Tästä syystä pysäkkien aktiivisuusaste-animaatio generoidaan vain viikon ajalta.
+                <div class="tab-pane active" id="general">
+                    <div class="row" style="padding-top: 20px;">
+                        <div class="col-md-offset-1">
+                        <h4> Aluksi </h4>
+                        Tervetuloa tarkastelemaan Tampereen julkisen liikenteen avoimen datan visualisointeja.
+                        Palvelumme pyrkii esittämään tarjolla olevaa dataa uudessa muodoissa. Unohtamatta tietenkään mahdollisuutta käynnistää visualisointi ja vain seurata linja-autojen reittejä kartalla. 
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-offset-1">
+                           <h4> Käyttöohjeita </h4>
+                        </div>
+                    </div>
                     
                     <div class="row">
-                        <div class="col-md-6">
-                            Tämä näkymä tarjoaa mahdollisuuden tarkastella Tampereen alueen linja-autopysäkkien aktiivisuusasteita eri kellonaikoina.
-                        </div>
-                        <div class="col-md-6">
-                            <span>Värien selite</span>
+                        <div class="col-md-offset-1">
+                            <span>Pysäkit</span>
+                            <span>
+                            Pysäkkien visualisointi näyttää heatmap -tekniikkaa hyödyntäen kunkin ajanhetken "kuumimman" pysäkin.<br>
+                            Jokaiselle pysäkille lasketaan lämpöarvo perustuen edellisen 20min aikana siihen pysähtyneiden
+                            linja-autojen määrään. Tälläistä datan esitystä käyttäen on helppo nopeasti huomata erillaisia toistuvia kuvioita kartalta.<br>
+                            Lisäksi tämän tyylinen esitystapa antaa asiaan perehtymättömämmällekin henkilölle paremman kuvan kuin pelkät tilastot.
+                            Kartan väritystä voi lukea seuraavan värikoodiston avulla:
+                            </span>
                             <br>
                             <h4><span class="label label-success">Vähäinen</span></h4>
                             <h4><span class="label label-warning">Kohtalainen</span></h4>
                             <h4><span class="label label-danger">Runsas</span></h4>
+                            Esimerkiksi Tampereen alueen keskustorin pysäkit ovat melkein jatkuvasti punaisen värin peitossa, eli tämä kertoo niiden runsaasta käytöstä.
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <div class="col-md-offset-1">
+                        <h4> Lopuksi </h4>
+                            Toivottavasti viihdyt pienen palvelumme parissa. Palautetta otetaan vastaan.
+                        </div>
+                    </div>
+                    
                 </div>
             
                 <div class="tab-pane" id="staticLines" style="height: 700px; overflow-y: auto;">
@@ -70,56 +92,70 @@
                     </table>
                 </div>
             
-                <div class="tab-pane active" id="animatedBusStops">
+                <div class="tab-pane" id="visualization">
                 
-                    <div class="row" style="margin-top: 20px; margin-bottom:20px;">
+                    <div style="margin-top: 20px; margin-bottom:20px;">
                     
-                        <div class="col-md-12">
-                            <label>Visualisoitava data</label>
-                        </div>
-                        <div class="btn-group col-md-12" data-toggle="buttons">
-                            <label class="btn btn-primary active">
-                                <input type="radio" name="options" id="option1" checked>Pysäkit
-                            </label>
-                            <label class="btn btn-primary">
-                                <input type="radio" name="options" id="option2">Linjat
-                            </label>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-4">
+                                <label>Visualisoitava data</label>
+                            </div>
+                            <div class="btn-group col-md-6" data-toggle="buttons" id="visualizationMode">
+                                <label class="btn btn-primary active">
+                                    <input type="radio" name="options" value="bus-stops-visualization" checked>Pysäkit
+                                </label>
+                                <label class="btn btn-primary">
+                                    <input type="radio" name="options" value="bus-routes-visualization">Linjat
+                                </label>
+                            </div>
                         </div>
                     
+                        <!--
                         <label for="currentDate" class="col-md-1" style="margin-bottom: 10px; text-align: right;">Päivä</label>
                         <div class="col-md-7" style="margin-bottom: 10px;">
                             <input type="text" id="currentDate" value="Ma" class="form-control" disabled>
                         </div>
                         <div class="col-md-4">
                         </div>
-                    
-                        <label for="currentTripTime" class="col-md-1" style="margin-bottom: 10px; text-align: right;">Kello</label>
-                        <div class="col-md-7" style="margin-bottom: 10px;">
-                            <input type="text" id="currentTripTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" disabled>
-                        </div>
-                        <div class="col-md-4">
+                        -->
+                        <br>
+                        <div class="row">
+                            <label for="currentTime" class="col-md-offset-1 col-md-4" style="text-align: right;">Kello</label>
+                            <div class="col-md-6" style="margin-bottom: 10px;">
+                                <input type="text" id="currentTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" disabled>
+                            </div>
                         </div>
                         
-                        <div class="col-sm-offset-7 col-sm-2">
-                            <button type="button" class="btn btn-success" onclick="resumeHotness();">Käynnistä</button>
+                        <div class="row">
+                            <div class="col-md-offset-5 col-md-3">
+                                <button type="button" class="btn btn-success" id="startButton" onclick="startVisualization();">Käynnistä</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-danger" id="stopButton" onclick="stopVisualization();">Pysäytä</button>
+                            </div>
                         </div>
-                        <div class="col-sm-1">
-                            <button type="button" class="btn btn-danger" onclick="pauseHotness();">Pysäytä</button>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-offset-5 col-md-5">
+                                <button type="button" class="btn btn-info" id="clearButton" onclick="clearVisualizationSettings();">Tyhjennä näkymä</button>
+                            </div>
                         </div>
+                        
                     </div>
                     
                     <div class="panel-group" id="accordion">
                       <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    Asetukset&nbsp;<i class="glyphicon glyphicon-plus"></i>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="additionalOptionsClicked()" style="text-decoration: none;">
+                                    Lisäasetukset&nbsp;<i id="additionalOptionsState" class="glyphicon glyphicon-plus"></i>
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse">
                             <div class="panel-body">
                             
+                                <!--
                                 <div>
                                     <label>Valitut viikonpäivät</label>
                                 </div>
@@ -147,23 +183,25 @@
                                         <input type="checkbox"> Su
                                     </label>
                                 </div>
+                                -->
 
-                                    <label for="startTime" class="col-sm-4 control-label">Aloitusaika</label>
-                                    <div class="col-sm-5">
+                                <div class="row" style="padding-bottom: 5px;">
+                                    <label for="startTime" class="col-md-offset-1 col-md-4" style="text-align: right;">Aloitusaika</label>
+                                    <div class="col-md-6">
                                         <input type="text" id="startTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
                                     </div>
+                                </div>
 
-                                    <label for="endTime" class="col-sm-4 control-label">Lopetusaika</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" id="endTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
+                                <div class="row" style="padding-bottom: 5px;">
+                                    <label for="endTime" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">Lopetusaika</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="endTime" value="23:59" pattern="\d{2}:\d{2}" class="form-control" placeholder="23:59">
                                     </div>
+                                </div>
 
-                                    <div class="col-sm-3">
-                                        <button type="button" class="btn btn-info" onclick="clearHotness();">Nollaa</button>
-                                    </div>
-
-                                    <label for="updateSpeed" class="col-sm-4 control-label">Päivitysnopeus</label>
-                                    <div class="col-sm-5">
+                                <div class="row" style="padding-bottom: 5px;">
+                                    <label for="updateSpeed" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">Päivitysnopeus</label>
+                                    <div class="col-md-6">
                                         <select id="updateSpeed" class="form-control">
                                             <option value="10">Erittäin hidas</option>
                                             <option value="15">Hidas</option>
@@ -172,67 +210,27 @@
                                             <option value="30">Erittäin nopea</option>
                                         </select>
                                     </div>
-
-                            <div class="col-sm-5 col-sm-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Jatkuva
-                                    </label>
                                 </div>
-                            </div>
+                                
+                                <div class="row" style="padding-bottom: 5px;">
+                                    <label for="endTime" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">Tarkasteluväli</label>
+                                    <div class="col-md-6">
+                                        <input type="number" id="interval" value=1 min=1 max=20 class="form-control" placeholder=1>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="padding-bottom: 5px;">
+                                    <div class="col-md-offset-1 col-md-4" style="text-align: right;">
+                                        <label>Jatkuva</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                         <input id="continuous" type="checkbox">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                       </div>
                     </div>
-                </div>
-            
-                <div class="tab-pane" id="animatedTrips">
-                    <form class="form-horizontal row" role="form" style="margin-top: 20px;">
-                        <div class="form-group">
-                            <label for="startDateTimeTrips" class="col-sm-4 control-label">Aloitusaika</label>
-                            <div class="col-sm-5">
-                                <input type="text" id="startDateTimeTrips" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="endDateTimeTrips" class="col-sm-4 control-label">Lopetusaika</label>
-                            <div class="col-sm-5">
-                                <input type="text" id="endDateTimeTrips" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-info" onclick="clearTrips();">Nollaa</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="updateTripSpeed" class="col-sm-4 control-label">Päivitysnopeus</label>
-                            <div class="col-sm-5">
-                                <select id="updateTripSpeed" class="form-control">
-                                    <option value="10">Erittäin hidas</option>
-                                    <option value="15">Hidas</option>
-                                    <option value="20" selected="true">Normaali</option>
-                                    <option value="25">Nopea</option>
-                                    <option value="30">Erittäin nopea</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-success" onclick="startTripping();">Käynnistä</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-5 col-sm-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox">Jatkuva
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-danger" onclick="stopTripping();">Pysäytä</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
 		</div>
@@ -253,15 +251,24 @@
 <script src="data-processed/routes.js"></script>
 <script src="data-processed/points-all-routes.js"></script>
 <script src="data-processed/stops.js"></script>
-<!-- <script src="data-processed/pure-trips.js"></script> -->
+<script src="data-processed/pure-trips.js"></script>
 <script src="features/utils.js"></script>
 <script src="features/bus-selector.js"></script>
-<script src="features/heatmap.js"></script>
 <script src="features/bus-stops.js"></script>
-<script src="features/trip-controller.js"></script>
+<script src="features/busStopHeatmapController.js"></script>
+<script src="features/tripController.js"></script>
+<script src="features/visualizationController.js"></script>
 <script src="www/filterable-table.js"></script>
 
 <script>
+
+function additionalOptionsClicked()
+{
+    if ( $("#additionalOptionsState").hasClass("glyphicon-plus") )
+        $("#additionalOptionsState").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    else
+        $("#additionalOptionsState").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+}
 
 map = L.map('map', {
 	// initial options for Leaflet map - currently empty
