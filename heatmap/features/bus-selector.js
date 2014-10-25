@@ -5,6 +5,15 @@ $(document).ready(function (){
 	var tbody = $('table.lines tbody');
 
 	for (var i = 0; i < routes.length; ++i) {
+		// two issues, that we have to account for:
+		// 1) there are some routes which are in the dataset but are discontinued I guess: they are in the routes
+		// database but they have no shape data available AND they are not shown in TKL's online catalog. discontinued?
+		// so why in the dataset in the first place? there are some operational routes 
+		// 2) some routes are operational and the route is shown in TKL site but shape data is not available in GTFS dump - WTF?
+		if (routes[i].route_short_name in allPoints === false) {
+			continue;
+		}
+
 		var tr = $('<tr class="line"></tr>').attr('data-id', routes[i].route_id);
 
 		$('<td><input class="displayed_indicator" type="checkbox" /></td>').appendTo(tr);
