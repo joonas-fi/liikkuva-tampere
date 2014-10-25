@@ -29,19 +29,11 @@ $(document).ready(function (){
 	heatmapLayer = new HeatmapOverlay(heatmapConfig);
 });
 
-var timeStep = 60;
-var departingBusesWindow = 20 * 60; // [s] 
-var currentTime = 0;
-var animationRunning = false;
-var updateSpeed;
-
 var updateHotness = function()
 {       
-	if (!animationRunning)
+	if (!visualizationRunning)
 		return;
 
-	setTimeout(updateHotness, parseInt(1000 / updateSpeed) );
-		
 	// receives entries like {lat: 61.485008, lng: 23.846995, count: 3},
 	var liveData = {
 		data: [
@@ -59,6 +51,11 @@ var updateHotness = function()
 	if (currentTime > 60 * 60 * 24)
 	{
 		currentTime = 0;
+        
+        if (continuous)
+        {
+            setTimeout(updateHotness, parseInt(1000 / updateSpeed) );
+        }
 	}
 
 	heatmapLayer.setData(liveData);
@@ -90,7 +87,7 @@ function setAnimationRunState(state)
 function resumeHotness()
 {
     setAnimationRunState(true);
-	updateSpeed = +document.getElementById("updateSpeed").value;
+	updateSpeed = document.getElementById("updateSpeed").value;
 
 	// leaflet is ok with same layer being added multiple times
 	map.addLayer(heatmapLayer);

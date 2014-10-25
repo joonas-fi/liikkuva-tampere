@@ -25,14 +25,34 @@
 
 	<div class="row" id="map-browse">
 	
-		<div class="col-md-3" >
+		<div class="col-md-3">
 			<ul class="nav nav-tabs" role="tablist">
+                <li><a href="#general" role="tab" data-toggle="tab">Yleistä</a></li>
 				<li><a href="#staticLines" role="tab" data-toggle="tab">Reitit</a></li>
-				<li class="active"><a href="#animatedBusStops" role="tab" data-toggle="tab">Pysäkkien aktiivisuusaste</a></li>
+				<li class="active"><a href="#animatedBusStops" role="tab" data-toggle="tab">Visualisointi</a></li>
 				<li><a href="#animatedTrips" role="tab" data-toggle="tab">Reittianimaatio</a></li>
 			</ul>
             
             <div class="tab-content">
+            
+                <div class="tab-pane" id="general">
+                    Lukuunottamatta tiettyjä erikoistapauksia ( itsenäisyyspäivä jne. ), pysyy liikenne vuoden aikana ( 11.8.2014 - 31.5.2015 ) hyvin samankaltaisena.
+                    Tästä syystä pysäkkien aktiivisuusaste-animaatio generoidaan vain viikon ajalta.
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            Tämä näkymä tarjoaa mahdollisuuden tarkastella Tampereen alueen linja-autopysäkkien aktiivisuusasteita eri kellonaikoina.
+                        </div>
+                        <div class="col-md-6">
+                            <span>Värien selite</span>
+                            <br>
+                            <h4><span class="label label-success">Vähäinen</span></h4>
+                            <h4><span class="label label-warning">Kohtalainen</span></h4>
+                            <h4><span class="label label-danger">Runsas</span></h4>
+                        </div>
+                    </div>
+                </div>
+            
                 <div class="tab-pane" id="staticLines" style="height: 700px; overflow-y: auto;">
                     <input type="checkbox" id="showBusStops" />
                     <label for="showBusStops">näytä bussipysäkit</label>
@@ -52,48 +72,107 @@
             
                 <div class="tab-pane active" id="animatedBusStops">
                 
-                    <span class="label label-success">Success</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
-                
-                    <form class="form-horizontal row" role="form" style="margin-top: 20px;">
-                        <div class="form-group">
-                            <label for="startTime" class="col-sm-4 control-label">Aloitusaika</label>
-                            <div class="col-sm-5">
-                                <input type="text" id="startTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
-                            </div>
+                    <div class="row" style="margin-top: 20px; margin-bottom:20px;">
+                    
+                        <div class="col-md-12">
+                            <label>Visualisoitava data</label>
                         </div>
-                        <div class="form-group">
-                            <label for="endTime" class="col-sm-4 control-label">Lopetusaika</label>
-                            <div class="col-sm-5">
-                                <input type="text" id="endTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
-                            </div>
+                        <div class="btn-group col-md-12" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="options" id="option1" checked>Pysäkit
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option2">Linjat
+                            </label>
                         </div>
-                        <div class="form-group">
-                            <label for="currentTime" class="col-sm-4 control-label">Kello</label>
-                            <div class="col-sm-5">
-                                <input type="text" id="currentTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" disabled>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-info" onclick="clearHotness();">Nollaa</button>
-                            </div>
+                    
+                        <label for="currentDate" class="col-md-1" style="margin-bottom: 10px; text-align: right;">Päivä</label>
+                        <div class="col-md-7" style="margin-bottom: 10px;">
+                            <input type="text" id="currentDate" value="Ma" class="form-control" disabled>
                         </div>
-                        <div class="form-group">
-                            <label for="updateSpeed" class="col-sm-4 control-label">Päivitysnopeus</label>
-                            <div class="col-sm-5">
-                                <select id="updateSpeed" class="form-control">
-                                    <option value="10">Erittäin hidas</option>
-                                    <option value="15">Hidas</option>
-                                    <option value="20" selected="true">Normaali</option>
-                                    <option value="25">Nopea</option>
-                                    <option value="30">Erittäin nopea</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-success" onclick="resumeHotness();">Käynnistä</button>
-                            </div>
+                        <div class="col-md-4">
                         </div>
-                        <div class="form-group">
+                    
+                        <label for="currentTripTime" class="col-md-1" style="margin-bottom: 10px; text-align: right;">Kello</label>
+                        <div class="col-md-7" style="margin-bottom: 10px;">
+                            <input type="text" id="currentTripTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" disabled>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        
+                        <div class="col-sm-offset-7 col-sm-2">
+                            <button type="button" class="btn btn-success" onclick="resumeHotness();">Käynnistä</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-danger" onclick="pauseHotness();">Pysäytä</button>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-group" id="accordion">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    Asetukset&nbsp;<i class="glyphicon glyphicon-plus"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                            
+                                <div>
+                                    <label>Valitut viikonpäivät</label>
+                                </div>
+                            
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> Ma
+                                    </label>
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> Ti
+                                    </label>
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> Ke
+                                    </label>
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> To
+                                    </label>
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> Pe
+                                    </label>
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> La
+                                    </label>
+                                    <label class="btn btn-primary active">
+                                        <input type="checkbox"> Su
+                                    </label>
+                                </div>
+
+                                    <label for="startTime" class="col-sm-4 control-label">Aloitusaika</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="startTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
+                                    </div>
+
+                                    <label for="endTime" class="col-sm-4 control-label">Lopetusaika</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="endTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-info" onclick="clearHotness();">Nollaa</button>
+                                    </div>
+
+                                    <label for="updateSpeed" class="col-sm-4 control-label">Päivitysnopeus</label>
+                                    <div class="col-sm-5">
+                                        <select id="updateSpeed" class="form-control">
+                                            <option value="10">Erittäin hidas</option>
+                                            <option value="15">Hidas</option>
+                                            <option value="20" selected="true">Normaali</option>
+                                            <option value="25">Nopea</option>
+                                            <option value="30">Erittäin nopea</option>
+                                        </select>
+                                    </div>
+
                             <div class="col-sm-5 col-sm-offset-4">
                                 <div class="checkbox">
                                     <label>
@@ -101,11 +180,10 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <button type="button" class="btn btn-danger" onclick="pauseHotness();">Pysäytä</button>
                             </div>
                         </div>
-                    </form>
+                      </div>
+                    </div>
                 </div>
             
                 <div class="tab-pane" id="animatedTrips">
@@ -123,10 +201,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="currentTripTime" class="col-sm-4 control-label">Kello</label>
-                            <div class="col-sm-5">
-                                <input type="text" id="currentTripTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" disabled>
-                            </div>
                             <div class="col-sm-3">
                                 <button type="button" class="btn btn-info" onclick="clearTrips();">Nollaa</button>
                             </div>
@@ -164,21 +238,22 @@
 		</div>
     
 		<div class="col-md-9">
-			<div id="map" style="height: 740px;">
+			<div id="map" style="height: 740px; border: 1px black solid">
 			</div>
 		</div>
-
 	</div>
-</div>
-
-<div>
-    <small>Kaikki oikeudet pidätetään, (c) Samu Laaksonen & Joonas Loppi</small>
+    
+    <div class="row">
+        <div class="col-md-offset-3" style="padding-left: 15px;">
+            <small>Kaikki oikeudet pidätetään, (c) Samu Laaksonen & Joonas Loppi</small>
+        </div>
+    </div>
 </div>
 
 <script src="data-processed/routes.js"></script>
 <script src="data-processed/points-all-routes.js"></script>
 <script src="data-processed/stops.js"></script>
-<script src="data-processed/pure-trips.js"></script>
+<!-- <script src="data-processed/pure-trips.js"></script> -->
 <script src="features/utils.js"></script>
 <script src="features/bus-selector.js"></script>
 <script src="features/heatmap.js"></script>
@@ -202,6 +277,7 @@ L.tileLayer(provider.template, {
 
 </script>
 <script>
+/*
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -209,7 +285,7 @@ L.tileLayer(provider.template, {
 
   ga('create', 'UA-56086194-1', 'auto');
   ga('send', 'pageview');
-
+*/
 </script>
 
 </body>
