@@ -6,20 +6,11 @@ todo
 
 Open bus-lines.html in your browser!
 
-# To produce points.js file for a different bus line
+# To refresh the data:
 
-Run the following script:
+Download latest GTFS dump from [ITSFactory](http://data.itsfactory.fi/files/tampere_gtfs_latest.zip) and extract to itsfactory-gtfs-data/
 
-	$ ruby produce-json-for-line.rb
-	Usage: <route_short_name>
-
-=> So use the bus number to build the points.js file:
-
-	$ ruby produce-json-for-line.rb Y35
-	202 point(s) written to points.js
-	fixme: discarded 2 shapes
-
-List of bus lines can be found from routes.txt
+	$ 
 
 # Origin of the data files
 

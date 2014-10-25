@@ -24,12 +24,12 @@
 33,33,Keskustori - Lahdesjärvi,3
 36,36,Multisilta - Hatanpää - Myllypuro,3
 38,38,Atala - Hermia,3
-4,4,Länsi-Hervanta - Keskustori,3
-4Y,4,Hervanta - Keskustori,3
+4,4,Hervanta - Keskustori,3
+4Y,4,Länsi-Hervanta - Keskustori,3
 40,40,Tampere - Kangasala,3
 41,41,Kangasala - Ponsa - Orivesi,3
 44,44,Kangasala - Valkeakoski,3
-45,45,Kangasala - Kangasala asema - Lentola,3
+45,45,Kangasala-Kangasala asema-Lentola,3
 46,46,Kangasala - Ruutana,3
 47,47,Tampere - Ruutana - Suinula,3
 5,5,Tays - Vuores - Keskustori,3

@@ -1,13 +1,6 @@
 require 'json'
 require './common.rb'
 
-datasource = ARGV[0]
-
-unless datasource
-	puts "First argument must be path to datasource file"
-	exit!
-end
-
 # Data examples
 #
 # stops.txt:
@@ -78,7 +71,7 @@ def combine_stop_coordinates_with_arrival_times(stops_coordinates)
 	stops_coordinates
 end
 
-stops_original = parse_gtfs_file(datasource)
+stops_original = parse_gtfs_file("stops.txt")
 
 puts "Read #{stops_original.length} bus-stops"
 
