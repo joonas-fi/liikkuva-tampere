@@ -21,6 +21,8 @@ routes.each do |route|
 
 	discarded = unique_shape_ids.length - 1
 
+	puts "warning: discarded #{discarded} shapes for route #{route_id}"
+
 	# fixme: what else to do with multiples?
 	unique_shape_ids = unique_shape_ids[0]
 

@@ -10,7 +10,9 @@ Open bus-lines.html in your browser!
 
 Download latest GTFS dump from [ITSFactory](http://data.itsfactory.fi/files/tampere_gtfs_latest.zip) and extract to itsfactory-gtfs-data/
 
-	$ 
+	$ ruby produce-json-for-all-lines.rb
+	$ ruby produce-json-for-all-routes.rb
+	$ ruby produce-json-for-bus-stops.rb
 
 # Origin of the data files
 
