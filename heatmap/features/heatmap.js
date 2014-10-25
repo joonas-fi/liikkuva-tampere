@@ -30,6 +30,7 @@ $(document).ready(function (){
 });
 
 var timeStep = 60;
+var departingBusesWindow = 20 * 60; // [s] 
 var currentTime = 0;
 var animationRunning = false;
 var updateSpeed;
@@ -70,7 +71,7 @@ var calculateHotness = function(busStop, currentTime)
 	// TODO : perhaps presort usage times so this does not need to run through all values
 	var usageTimes = busStop[2];
 	var count = usageTimes.reduce(function(previousValue, currentValue, index, array) {
-		if (currentValue <= currentTime && currentValue > currentTime - 60)
+		if (currentValue <= currentTime && currentValue > currentTime - departingBusesWindow)
 			return previousValue + 1;
 		else
 			return previousValue;
@@ -91,6 +92,7 @@ function resumeHotness()
     setAnimationRunState(true);
 	updateSpeed = +document.getElementById("updateSpeed").value;
 
+	// leaflet is ok with same layer being added multiple times
 	map.addLayer(heatmapLayer);
 
 	updateHotness();
