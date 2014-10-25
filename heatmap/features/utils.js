@@ -40,29 +40,6 @@ var providers = {
 	}
 };
 
-var initTabNavigation = function () {
-	var initialSection = 'map-browse';
-
-	hideAllContentSectionsExcept(initialSection);
-
-	$('.main-navigation').on('click', 'a', function (){
-		var li = $(this).closest('li').addClass('active');
-		li.siblings().not(li).removeClass('active');
-
-		hideAllContentSectionsExcept(this.getAttribute('data-target'));
-	});
-};
-
-var hideAllContentSectionsExcept = function (sectionToKeep) {
-	$('.content-section').each(function (){
-		$(this).toggleClass('initially-hidden', this.id != sectionToKeep);
-	});
-};
-
-$(document).ready(function (){
-	//initTabNavigation();
-});
-
 var updateClockDisplay = function(clockComponent, time)
 {
 	var clock = new Date(time * 1000);
