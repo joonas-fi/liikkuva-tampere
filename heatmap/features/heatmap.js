@@ -27,19 +27,19 @@ $(document).ready(function (){
 	};
 
 	heatmapLayer = new HeatmapOverlay(heatmapConfig);
-	map.addLayer(heatmapLayer);
 });
 
 var timeStep = 60;
 var currentTime = 0;
 var animationRunning = false;
+var updateSpeed;
 
 var updateHotness = function()
-{
+{       
 	if (!animationRunning)
 		return;
-        
-	startHotness();
+
+	setTimeout(updateHotness, parseInt(1000 / updateSpeed) );
 		
 	// receives entries like {lat: 61.485008, lng: 23.846995, count: 3},
 	var liveData = {
@@ -83,24 +83,28 @@ var calculateHotness = function(busStop, currentTime)
 function setAnimationRunState(state)
 {
 	animationRunning = state;
-	var updateSpeed = document.getElementById("updateSpeed");
-	updateSpeed.disabled = state;
+	document.getElementById("updateSpeed").disabled = state;
 }
 
-function startHotness()
+function resumeHotness()
 {
     setAnimationRunState(true);
-	var updateSpeed = document.getElementById("updateSpeed");
-	setTimeout(updateHotness, parseInt(1000 / updateSpeed.value) );
+	updateSpeed = +document.getElementById("updateSpeed").value;
+
+	map.addLayer(heatmapLayer);
+
+	updateHotness();
 }
 
-function stopHotness()
+function pauseHotness()
 {
     setAnimationRunState(false);
 }
 
 function clearHotness()
 {
+	pauseHotness();
+
     currentTime = 0;
     updateClockDisplay('currentTime', currentTime);
     
@@ -110,4 +114,6 @@ function clearHotness()
 	};
     
     heatmapLayer.setData(liveData);
+
+    map.removeLayer(heatmapLayer);
 }
