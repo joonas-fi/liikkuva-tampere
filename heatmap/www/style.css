@@ -8,3 +8,7 @@
 .initially-hidden {
 	display: none;
 }
+
+input:invalid {
+	background: #d9534f;
+}
