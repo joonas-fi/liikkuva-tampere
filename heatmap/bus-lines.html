@@ -17,28 +17,18 @@
 </head>
 <body>
 
+<div class="page-header">
+    <h1>&nbsp;Liikkuva Tampere<small> animoi kaikki ja vielä vähän enemmän</small></h1>
+</div>
+
 <div class="container-fluid">
-
-	<div class="row">
-		
-		<div class="col-md-12">
-            <!--
-			<ul class="nav nav-tabs main-navigation" role="tablist">
-				<li class="active"><a href="#" data-target="map-browse">Selaa</a></li>
-				<li><a href="#" data-target="reachability-map">Tavoitettavuuskartta</a></li>
-				<li><a href="#" data-target="prices">Maksuvyöhykkeet &amp; hinnat</a></li>
-			</ul>			
-            -->
-		</div>
-
-	</div>
 
 	<div class="row" id="map-browse">
 	
 		<div class="col-md-3" >
 			<ul class="nav nav-tabs" role="tablist">
 				<li><a href="#staticLines" role="tab" data-toggle="tab">Reitit</a></li>
-				<li class="active"><a href="#animatedBusStops" role="tab" data-toggle="tab">Pysäkkien käyttöaste</a></li>
+				<li class="active"><a href="#animatedBusStops" role="tab" data-toggle="tab">Pysäkkien aktiivisuusaste</a></li>
 				<li><a href="#animatedTrips" role="tab" data-toggle="tab">Reittianimaatio</a></li>
 			</ul>
             
@@ -61,6 +51,11 @@
                 </div>
             
                 <div class="tab-pane active" id="animatedBusStops">
+                
+                    <span class="label label-success">Success</span>
+                    <span class="label label-warning">Warning</span>
+                    <span class="label label-danger">Danger</span>
+                
                     <form class="form-horizontal row" role="form" style="margin-top: 20px;">
                         <div class="form-group">
                             <label for="startTime" class="col-sm-4 control-label">Aloitusaika</label>
@@ -174,29 +169,10 @@
 		</div>
 
 	</div>
+</div>
 
-    <!--
-	<div class="row content-section" id="prices">
-		<div class="col-md-12">
-			<h2>Maksuvyöhykkeet</h2>
-
-			<img src="www/vyohykkeet_jolila.jpg" alt="Maksuvyöhykkeet" />
-
-			<h2>Hinnat</h2>
-
-			<img src="www/20140630_hinnasto.png" alt="">
-
-		</div>
-	</div>
-
-	<div class="row content-section" id="reachability-map">
-		<div class="col-md-12">
-			<h2>fixme</h2>
-
-		</div>
-	</div>
-    -->
-
+<div>
+    <small>Kaikki oikeudet pidätetään, (c) Samu Laaksonen & Joonas Loppi</small>
 </div>
 
 <script src="data-processed/routes.js"></script>

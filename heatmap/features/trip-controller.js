@@ -6,7 +6,7 @@ $(document).ready(function (){
 	busTripLayer = L.featureGroup();
 });
 
-var tripTimeStep = 1;
+var tripTimeStep = 5;
 var currentTripTime = 0;
 var tripAnimationRunning = false;
 
@@ -48,20 +48,27 @@ var isTripRouteActive = function(trip, currentTripTime)
 
 var calculateBusPositionOnTripRoute = function(trip, currentTripTime)
 {
+    //[south, west], [north, east]
+    //[61.40, 23.50], [61.55, 24.10]
+
     for(var i = 0; i < trip.stops.length - 1; i++)
     {
         var prevStop = trip.stops[i];
         var nextStop = trip.stops[i+1];
-        if (currentTripTime >= prevStop.time &&
-            currentTripTime <= nextStop.time)
+        
+        if (currentTripTime == prevStop.time)
+        {
+            return [prevStop.lat, prevStop.lon];
+        }
+        else if (currentTripTime > prevStop.time && currentTripTime <= nextStop.time)
         {
             var duration = nextStop.time - prevStop.time;
-            var delta = nextStop.time - currentTripTime;
+            var delta = currentTripTime - prevStop.time;
             
             var lat = (nextStop.lat - prevStop.lat) / duration * delta + prevStop.lat;
             var lon = (nextStop.lon - prevStop.lon) / duration * delta + prevStop.lon;
 
-            return [lat, lon];
+            return [lat.toPrecision(7), lon.toPrecision(7)];
         }
     }
 }
@@ -77,7 +84,7 @@ function startTripping()
 {
     setTripAnimationRunState(true);
 	var updateSpeed = document.getElementById("updateTripSpeed");
-	setTimeout(updateTrips, parseInt(1000 / 60) );
+	setTimeout(updateTrips, parseInt(1000 / 10) );
 }
 
 function stopTripping()
