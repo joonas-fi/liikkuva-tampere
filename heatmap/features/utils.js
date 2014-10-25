@@ -50,3 +50,10 @@ var updateClockDisplay = function(clockComponent, time)
 	
 	document.getElementById(clockComponent).value = time;
 }
+
+// master-checkbox
+
+$(document.body).on('change', 'input.master-checkbox', function (){
+	// toggle all checkboxes from tbody, which are visible (invisible checkboxes could be filtered out)
+	$(this).closest('table').find('> tbody input[type=checkbox]:visible').click();
+});
