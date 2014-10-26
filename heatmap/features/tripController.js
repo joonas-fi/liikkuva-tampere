@@ -2,8 +2,7 @@
 var busTripLayer;
 
 $(document).ready(function (){
-	
-	busTripLayer = L.featureGroup();
+	busTripLayer = L.featureGroup().addTo(map);
 });
 
 var busMarkerIcon = L.icon({
@@ -14,23 +13,29 @@ var busMarkerIcon = L.icon({
 
 var tripInterval = 10;
 
+// create 1:1 array of marker objects from allTrips
+var cachedMarkers = allTrips.map(function (trip){
+    return L.marker([0.0, 0.0], { icon: busMarkerIcon, title: trip.route_id });
+});
+
 var updateTrips = function()
 {
 	if (!visualizationRunning)
 		return;
         
-    map.removeLayer(busTripLayer);
-	busTripLayer = L.featureGroup();
     for ( var tripIndex = 0; tripIndex < allTrips.length; tripIndex++ )
     {
         if (isTripRouteActive(allTrips[tripIndex], currentTime))
         {
             var coords = calculateBusPositionOnTripRoute(allTrips[tripIndex], currentTime);
             
-            L.marker(coords, { icon: busMarkerIcon, title: allTrips[tripIndex].route_id }).addTo(busTripLayer);
+            cachedMarkers[tripIndex].setLatLng(coords).addTo(busTripLayer);
+        }
+        else
+        {
+            busTripLayer.removeLayer(cachedMarkers[tripIndex]);
         }
     }
-	busTripLayer.addTo(map);
 
 	updateClockDisplay('currentTime', currentTime);
     
@@ -84,6 +89,8 @@ var calculateBusPositionOnTripRoute = function(trip, currentTime)
 
 function startTripping()
 {
+    busTripLayer.addTo(map);
+
     updateTrips();
 }
 
