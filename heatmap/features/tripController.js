@@ -6,6 +6,12 @@ $(document).ready(function (){
 	busTripLayer = L.featureGroup();
 });
 
+var busMarkerIcon = L.icon({
+    iconUrl: 'www/bus-marker.png',
+    iconSize: [32, 37], // ratio is 0.8648648648648649
+    iconAnchor: [16, 37]
+});
+
 var updateTrips = function()
 {
 	if (!visualizationRunning)
@@ -19,7 +25,7 @@ var updateTrips = function()
         {
             var coords = calculateBusPositionOnTripRoute(allTrips[tripIndex], currentTime);
             
-            L.circle(coords, 10, { color: '#ff00ff', weight: 3 }).addTo(busTripLayer);
+            L.marker(coords, { icon: busMarkerIcon, title: allTrips[tripIndex].route_id }).addTo(busTripLayer);
         }
     }
 	busTripLayer.addTo(map);
