@@ -76,13 +76,8 @@
                 </div>
             
                 <div class="tab-pane" id="staticLines" style="height: 700px; overflow-y: auto;">
-                    <label>
-                        <input type="checkbox" id="showBusStops" />
-                        Näytä bussipysäkit
-
-                        <small><a target="_blank" href="http://joukkoliikenne.tampere.fi/fi/muutokset-tampereen-seudun-joukkoliikenteessa-30.6.2014/tariffijarjestelma-ja-vyohykejako.html">Tietoa maksuvyöhykkeistä</a></small>
-                    </label>
-
+                    <input type="checkbox" id="showBusStops" />
+                    <label for="showBusStops">näytä bussipysäkit</label>
                     
                     <table class="lines table table-striped">
                         <thead>
@@ -211,8 +206,8 @@
                                     </label>
                                     <div class="col-md-6">
                                         <select id="updateSpeed" class="form-control">
-                                            <option value="10">Erittäin hidas</option>
-                                            <option value="15">Hidas</option>
+                                            <option value="5">Erittäin hidas</option>
+                                            <option value="10">Hidas</option>
                                             <option value="20" selected="true">Normaali</option>
                                             <option value="25">Nopea</option>
                                             <option value="30">Erittäin nopea</option>
@@ -257,7 +252,7 @@
     
     <div class="row">
         <div class="col-md-offset-3" style="padding-left: 15px;">
-            <small>Kaikki oikeudet pidätetään, &copy; Samu Laaksonen &amp; Joonas Loppi</small>
+            <small>Kaikki oikeudet pidätetään, (c) Samu Laaksonen & Joonas Loppi</small>
         </div>
     </div>
 </div>
@@ -298,13 +293,13 @@ L.tileLayer(provider.template, {
 
 </script>
 <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-56086194-1', 'auto');
-ga('send', 'pageview');
+  ga('create', 'UA-56086194-1', 'auto');
+  ga('send', 'pageview');
 </script>
 
 </body>
