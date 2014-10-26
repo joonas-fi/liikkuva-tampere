@@ -186,23 +186,22 @@
                                 -->
 
                                 <div class="row" style="padding-bottom: 5px;">
-                                    <label for="startTime" class="col-md-offset-1 col-md-4" style="text-align: right;">Aloitusaika</label>
+                                    <label for="startTime" class="col-md-offset-1 col-md-4" style="text-align: right;" title="Kellonaika, jonka perusteella animaatio aloitetaan">Aloitusaika</label>
                                     <div class="col-md-6">
                                         <input type="text" id="startTime" value="00:00" pattern="\d{2}:\d{2}" class="form-control" placeholder="00:00">
                                     </div>
                                 </div>
 
                                 <div class="row" style="padding-bottom: 5px;">
-                                    <label for="endTime" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">Lopetusaika</label>
+                                    <label for="endTime" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;" title="Kellonaika johon animaation suoritus päättyy">Lopetusaika</label>
                                     <div class="col-md-6">
                                         <input type="text" id="endTime" value="23:59" pattern="\d{2}:\d{2}" class="form-control" placeholder="23:59">
                                     </div>
                                 </div>
 
                                 <div class="row" style="padding-bottom: 5px;">
-                                    <label for="updateSpeed" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">
+                                    <label for="updateSpeed" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;" title="Animoinnin etenemisnopeuden säätö">
                                         Päivitysnopeus
-                                        <span class="glyphicon glyphicon-question-sign" title="Kuinka nopeasti animaatio etenee"></span>
                                     </label>
                                     <div class="col-md-6">
                                         <select id="updateSpeed" class="form-control">
@@ -216,20 +215,9 @@
                                 </div>
                                 
                                 <div class="row" style="padding-bottom: 5px;">
-                                    <label for="endTime" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">
-                                        Tarkasteluväli
-                                        <span class="glyphicon glyphicon-question-sign" title="Montako sekuntia animaatio etenee joka piirroskerralla"></span>
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input type="number" id="interval" value=1 min=1 max=20 class="form-control" placeholder=1>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="padding-bottom: 5px;">
                                     <div class="col-md-offset-1 col-md-4" style="text-align: right;">
-                                        <label>
+                                        <label title="Animaation loppuessa, sallii sen automaattisen aloittamisen alusta">
                                             Jatkuva
-                                            <span class="glyphicon glyphicon-question-sign" title="Kun animaatio menee loppuun, aloitetaanko animaatio alusta?"></span>
                                         </label>
                                     </div>
                                     <div class="col-md-6">
