@@ -1,4 +1,5 @@
 require 'json'
+require 'open-uri'
 require './common.rb'
 
 # Data examples
@@ -56,8 +57,36 @@ def produce_stop_arrival_times()
 	arrival_times
 end
 
-def combine_stop_coordinates_with_arrival_times(stops_coordinates)
+def extract_tariff_zones()
+	stopPointsUrl = "http://data.itsfactory.fi/journeys/api/1/stop-points"
+	stopPointsCacheFilename = "stop-points.cache.json"
+
+	unless File.exists? stopPointsCacheFilename
+		response = open(stopPointsUrl)
+
+		File.write stopPointsCacheFilename, response.read
+	end
+
+	tariffs = {}
+
+	JSON.parse(File.read stopPointsCacheFilename)["body"].each do |stop|
+		tariffs[stop["shortName"]] = stop["tariffZone"]
+	end
+
+	tariffs
+end
+
+def extract_tariff_zone(map, stop_id)
+	return map[stop_id] if map.has_key? stop_id
+
+	puts "warning: no tariff found for stop_id #{stop_id}; guessing #1"
+
+	return "1"
+end
+
+def combine_stop_coordinates_with_arrival_times_and_tariff_zones(stops_coordinates)
 	arrival_times = produce_stop_arrival_times()
+	tariff_zones = extract_tariff_zones()
 
 	arrival_times.each do |stop_id, stop_count|
 		unless stops_coordinates.has_key? stop_id
@@ -66,6 +95,8 @@ def combine_stop_coordinates_with_arrival_times(stops_coordinates)
 		end
 
 		stops_coordinates[stop_id].push stop_count
+
+		stops_coordinates[stop_id].push extract_tariff_zone(tariff_zones, stop_id)
 	end
 
 	stops_coordinates
@@ -84,7 +115,7 @@ File.open(filename, "w") do |file|
 	file.write "var busStops = "
 
 	# the rest are JSON
-	file.write(combine_stop_coordinates_with_arrival_times(stop_coordinates).to_json)
+	file.write(combine_stop_coordinates_with_arrival_times_and_tariff_zones(stop_coordinates).to_json)
 end
 
 puts "#{stop_coordinates.length} bus-stop(s) written to #{filename}"

@@ -1,4 +1,11 @@
 
+var tariffPalette = {
+	'1': '#eb0190', // zone 1: pink
+	'2': '#1ff1e4', // zone 2: turquoise
+	'3': '#ef6c03', // zone 3: orange
+	'S': '#f3e41f' // zone 4: yellow
+};
+
 $(document).ready(function (){
 	// create bus stop feature group (so we can treat all bus stops as one layer)
 	// note: the difference of featureGroup vs layerGroup is that it contains getBounds() and supports some events etc.
@@ -7,16 +14,21 @@ $(document).ready(function (){
 	for (var busStopId in busStops) {
 		var busStopDetails = busStops[busStopId];
 		var coords = [ busStopDetails[0], busStopDetails[1] ];
+		var tariffZone = busStopDetails[3];
 
-		// var arrivalTimes = busStopDetails[2];
-		// 
-		// note to Samu:
-		// - arrival times is a list like this: [3600, 7200, ...]
-		// - time is seconds since midnight, so 3600 is 01:00:00, 3666  is 01:01:06 etc..
-		// - the list is not sorted, call sort() on the array if needed
+		if (tariffZone in tariffPalette === false) {
+			console.log('Tariff zone color not in tariffPalette:', tariffZone);
+			continue;
+		}
 
+		L.circleMarker(coords, {
+			fillColor: tariffPalette[tariffZone],
+			fillOpacity: 0.5,
 
-		L.circle(coords, 25, { color: '#ff0000', weight: 3 }).addTo(busStopLayer);
+			// border attributes
+			color: '#000000',
+			weight: 2
+		}).addTo(busStopLayer);
 	}
 
 	// set map max bounds according to bus stop bounds (so user can't linger too far away from what's important)
