@@ -11,7 +11,7 @@ var busMarkerIcon = L.icon({
     iconAnchor: [16, 37]
 });
 
-var tripInterval = 10;
+var tripInterval = 5;
 
 // create 1:1 array of marker objects from allTrips
 var cachedMarkers = allTrips.map(function (trip){
