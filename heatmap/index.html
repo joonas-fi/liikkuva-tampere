@@ -200,8 +200,9 @@
                                 </div>
 
                                 <div class="row" style="padding-bottom: 5px;">
-                                    <label for="updateSpeed" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;" title="Animaation etenemisnopeus">
+                                    <label for="updateSpeed" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">
                                         Päivitysnopeus
+                                        <span class="glyphicon glyphicon-question-sign" title="Kuinka nopeasti animaatio etenee"></span>
                                     </label>
                                     <div class="col-md-6">
                                         <select id="updateSpeed" class="form-control">
@@ -215,9 +216,20 @@
                                 </div>
                                 
                                 <div class="row" style="padding-bottom: 5px;">
+                                    <label for="endTime" class="col-md-offset-1 col-md-4 control-label" style="text-align: right;">
+                                        Tarkasteluväli
+                                        <span class="glyphicon glyphicon-question-sign" title="Montako sekuntia animaatio etenee joka piirroskerralla"></span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="number" id="interval" value=1 min=1 max=20 class="form-control" placeholder=1>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="padding-bottom: 5px;">
                                     <div class="col-md-offset-1 col-md-4" style="text-align: right;">
-                                        <label title="Automaattisesti aloittaa animoinnin alusta edellisen animaation loppuessa">
+                                        <label>
                                             Jatkuva
+                                            <span class="glyphicon glyphicon-question-sign" title="Kun animaatio menee loppuun, aloitetaanko animaatio alusta?"></span>
                                         </label>
                                     </div>
                                     <div class="col-md-6">
