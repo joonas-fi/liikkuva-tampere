@@ -1,6 +1,4 @@
 var currentTime = 0;
-var busDepartureFactor = 20;
-var interval = 60;
 var visualizationRunning = false;
 var updateSpeed = 0;
 var continuous = false;
@@ -35,7 +33,6 @@ function setVisualizationRunState(state)
 {
 	visualizationRunning = state;
 	document.getElementById("updateSpeed").disabled = state;
-	document.getElementById("interval").disabled = state;
 	document.getElementById("continuous").disabled = state;
 	document.getElementById("endTime").disabled = state;
 	document.getElementById("startTime").disabled = state;
@@ -66,8 +63,12 @@ function startMoment()
 function startVisualization()
 {
 	updateSpeed = document.getElementById("updateSpeed").value;
-	interval = parseInt(document.getElementById("interval").value);
 	continuous = document.getElementById("continuous").checked;
+    
+    if (startMoment() > ( (23 * 60 * 60) + (59 * 60) ) )
+        document.getElementById("startTime").value = "00:00";
+    if (endMoment() > ( (23 * 60 * 60) + (59 * 60) ) )
+        document.getElementById("endTime").value = "23:59";
     
     currentTime = startMoment();
     setVisualizationRunState(true);
@@ -97,13 +98,6 @@ function clearVisualizationSettings()
     document.getElementById("endTime").value = "23:59";
     document.getElementById("currentTime").value = "00:00";
     
-    var mode = $("#visualizationMode").find('.active').find('input').val();
-    if ( mode == "bus-stops-visualization" )
-    {
-        clearHotness();
-    }
-    else if ( mode == "bus-routes-visualization" )
-    {
-        clearTrips();
-    }
+    clearHotness();
+    clearTrips();
 }

@@ -29,6 +29,9 @@ $(document).ready(function (){
 	heatmapLayer = new HeatmapOverlay(heatmapConfig);
 });
 
+var hotnessInterval = 60;
+var busDepartureFactor = 20;
+
 var updateHotness = function()
 {       
 	if (!visualizationRunning)
@@ -46,7 +49,7 @@ var updateHotness = function()
     
     updateClockDisplay('currentTime', currentTime);
 
-	currentTime += interval*60;
+	currentTime += hotnessInterval;
 	
 	if (currentTime > endMoment())
 	{
@@ -73,7 +76,7 @@ var calculateHotness = function(busStop, currentTime)
 	// TODO : perhaps presort usage times so this does not need to run through all values
 	var usageTimes = busStop[2];
 	var count = usageTimes.reduce(function(previousValue, currentValue, index, array) {
-		if (currentValue <= currentTime && currentValue > currentTime - (interval*busDepartureFactor) )
+		if (currentValue <= currentTime && currentValue > currentTime - (hotnessInterval*busDepartureFactor) )
 			return previousValue + 1;
 		else
 			return previousValue;

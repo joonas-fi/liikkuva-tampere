@@ -12,6 +12,8 @@ var busMarkerIcon = L.icon({
     iconAnchor: [16, 37]
 });
 
+var tripInterval = 10;
+
 var updateTrips = function()
 {
 	if (!visualizationRunning)
@@ -32,7 +34,7 @@ var updateTrips = function()
 
 	updateClockDisplay('currentTime', currentTime);
     
-	currentTime += interval;
+	currentTime += tripInterval;
 	
 	if (currentTime > endMoment())
 	{
