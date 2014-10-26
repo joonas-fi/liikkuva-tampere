@@ -1,10 +1,12 @@
 # What is this?
 
-todo
+This is our entry to [apps4pirkanmaa](http://apps4pirkanmaa.fi) competition.
 
-# To run this
+Our entry is about visualizing public transportation in the Tampere region.
 
-Open bus-lines.html in your browser!
+# Demo
+
+[liikkuvatampere.xs.fi](http://liikkuvatampere.xs.fi/)
 
 # To refresh the data:
 
